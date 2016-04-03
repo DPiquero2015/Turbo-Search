@@ -12,6 +12,7 @@ public class OCRProcess
 		
 		File imageFile = new File(System.getProperty("java.io.tmpdir") + "/ocr_hackathon2016.jpg");
 		ITesseract instance = new Tesseract();
+		//copy 'tessdata' folder to C:\ drive
 		instance.setDatapath("C:\\");
 		instance.setLanguage("eng");
 		
