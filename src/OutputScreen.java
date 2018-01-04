@@ -21,7 +21,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 public class OutputScreen extends JFrame
@@ -41,7 +40,7 @@ public class OutputScreen extends JFrame
 	{
 		
 		try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
-		catch(ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) { e.printStackTrace(); }
+		catch(Exception e) { e.printStackTrace(); }
 		
 		new OutputScreen(input).setVisible(true);
 	}

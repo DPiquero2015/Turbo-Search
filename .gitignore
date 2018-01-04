@@ -1,0 +1,21 @@
+# exclude all
+/*
+
+# include libraries
+!lib/
+!gsdll64.dll
+!liblept172.dll
+!libtesseract304.dll
+
+# include tessdata training
+!tessdata/
+
+# include resources
+!res/
+
+# include source
+!src/
+
+# include git files
+!README.md
+!.gitignore

@@ -14,17 +14,10 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import com.lament.visual.Image;
-import com.lament.visual.ImageButton;
-import com.lament.visual.Resolution;
-import com.lament.window.State;
-import com.lament.window.StateManager;
-import com.lament.window.Window;
-
-public class GrabScreen extends State
+public class Driver extends State
 {
 	
-	public static Window window = new Window("Untitled", true, new Resolution(), new StateManager(new GrabScreen()));
+	public static Window window = new Window("Untitled", true, new Resolution(), new StateManager(new Driver()));
 	
 	private static Image screenshot;
 	
@@ -60,16 +53,13 @@ public class GrabScreen extends State
 		window.run();
 	}
 	
-	public void init()
-	{}
+	public void init() {}
 	
-	public void tick()
-	{}
+	public void tick() {}
 	
 	@Override
 	public void render(Graphics2D graphics)
 	{
-		
 		screenshot.render(graphics);
 		
 		if(!isDown && !isDone) drawFill(graphics);
@@ -82,19 +72,16 @@ public class GrabScreen extends State
 
 	public void keyReleased(int i)
 	{
-		
 		if(i == KeyEvent.VK_ESCAPE) System.exit(0);
 	}
 	
 	public void mousePressed(MouseEvent e)
 	{
-		
 		btnGood.mousePressed(e);
 		btnBad.mousePressed(e);
 		
 		if(e.getButton() == MouseEvent.BUTTON1 && !isDone)
 		{
-			
 			isDown = true;
 			start = current;
 		}
@@ -102,10 +89,8 @@ public class GrabScreen extends State
 	
 	public void mouseReleased(MouseEvent e)
 	{
-		
 		if(e.getButton() == MouseEvent.BUTTON1 && !isDone)
 		{
-			
 			isDown = false;
 			isDone = true;
 			
@@ -118,7 +103,6 @@ public class GrabScreen extends State
 			
 			if(end.y + 8 + 64 >= dim.getHeight())
 			{
-				
 				btnGood.setLocation(btnGood.getX(), end.y - 64 - 8);
 				btnBad.setLocation(btnBad.getX(), end.y - 64 - 8);
 			}
@@ -133,7 +117,6 @@ public class GrabScreen extends State
 	
 	public void mouseMoved(MouseEvent e)
 	{
-		
 		current = e.getPoint();
 		
 		btnGood.mouseMoved(e);
@@ -142,16 +125,13 @@ public class GrabScreen extends State
 	
 	public void mouseDragged(MouseEvent e)
 	{
-		
 		mouseMoved(e);
 	}
 	
 	public void onClick(int i)
 	{
-		
 		if(i == btnGood.ID)
 		{
-			
 			saveImage();
 			
 			OCRProcess.main(new String[0]);
@@ -159,7 +139,6 @@ public class GrabScreen extends State
 		
 		if(i == btnBad.ID)
 		{
-			
 			btnGood.setVisible(false);
 			btnBad.setVisible(false);
 			
@@ -174,7 +153,6 @@ public class GrabScreen extends State
 	
 	private void saveImage()
 	{
-		
 		Rectangle rectangle = new Rectangle(start, new Dimension(end.x - start.x, end.y - start.y));
 		BufferedImage output = robot.createScreenCapture(rectangle);
 		String dir = System.getProperty("java.io.tmpdir") + "/ocr_hackathon2016.jpg";
@@ -185,10 +163,8 @@ public class GrabScreen extends State
 	
 	private void checkPoints()
 	{
-		
 		if(end.x < start.x && end.y < start.y)
 		{
-			
 			Point temp = start;
 			start = end;
 			end = temp;
@@ -196,7 +172,6 @@ public class GrabScreen extends State
 		
 		if(start.x < end.x && end.y < start.y)
 		{
-			
 			Point temp = start;
 			start = new Point(start.x, end.y);
 			end = new Point(end.x, temp.y);
@@ -204,7 +179,6 @@ public class GrabScreen extends State
 		
 		if(end.x < start.x && start.y < end.y)
 		{
-			
 			Point temp = start;
 			start = new Point(end.x, start.y);
 			end = new Point(temp.x, end.y);
@@ -213,7 +187,6 @@ public class GrabScreen extends State
 	
 	private void drawBox(Point a, Point b, Graphics2D graphics)
 	{
-		
 		int top = a.y < b.y ? a.y : b.y;
 		int left = a.x < b.x ? a.x : b.x;
 		int right = b.x > a.x ? b.x : a.x;
@@ -227,7 +200,6 @@ public class GrabScreen extends State
 	
 	private void drawFill(Graphics2D graphics)
 	{
-		
 		graphics.setColor(new Color(0, 0, 0, 150));
 		graphics.fillRect(0, 0, dim.width, dim.height);
 	}
